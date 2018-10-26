@@ -65,72 +65,78 @@ unsafe_unretained id safeSelf = self;<br>
 - UIKit 一定會問，常見的就是 View Hierarchy 與 UIControl 家族，深入點的有 Layer 和 The Responder Chain
 
 - 共享數據:<br>
-  i URLScheme
-  >* 平常我們會去呼叫其它的 App 來達到我們的⺫的，如想要開啟網頁就 會叫出 Safari App，是怎麼做到的呢?就是使用 URL Scheme，格 式:
-schemename://
-schemename 可以是以下幾個例子:
-http, https, ftp : Web links ((launches the Safari app)
-mailto :E-maillinks(launchestheMailapp)
-tel : Telephone Numbers (launches the Phone app)
-sms : Text Messages (launches the SMS app) 那如果我們想要讓他人能夠開啟我們的 App，又該如何做到呢?就來 客製化 URL Scheme (Custom URL Scheme)吧!
-B. KeyChain
-i. Keychain 是 iOS 所提供的一個安全儲存參數的方式，最常用來當作儲 存帳號、密碼、信用卡資料等需要保密的資訊，Keychain 會以加密的 方式將這些資訊儲存於裝置當中。
+>* URLScheme<br>
+平常我們會去呼叫其它的 App 來達到我們的⺫的，如想要開啟網頁就 會叫出 Safari App，是怎麼做到的呢?就是使用 URL Scheme，格 式:<br>
+  schemename://<br>
+  schemename 可以是以下幾個例子:<br>
+  http, https, ftp : Web links ((launches the Safari app)<br>
+  mailto :E-maillinks(launchestheMailapp)<br>
+  tel : Telephone Numbers (launches the Phone app)<br>
+  sms : Text Messages (launches the SMS app) 那如果我們想要讓他人能夠開啟我們的 App，又該如何做到呢?就來 客製化 URL Scheme (Custom URL Scheme)吧!<br>
+>* KeyChain<br>
+Keychain 是 iOS 所提供的一個安全儲存參數的方式，最常用來當作儲 存帳號、密碼、信用卡資料等需要保密的資訊，Keychain 會以加密的 方式將這些資訊儲存於裝置當中。
 由於 Keychain 的資料並不是儲存在 App 的 Sandbox 中，所以即使 將 App 從裝置中刪除了，這些資料還是存在於裝置中，當使用者重新 安裝了相同的 App 後，這些資訊還是可以被取得。 另一個特色是，Keychain 的資料可以透過 Group Access 的方式，讓 資料可以在 App 間共享，Google 系列的 App (Gmail、Google+、 日曆...)就是透過這樣的方式來紀錄使用者登入資訊，只要使用者在其 中一個 App 中完成登入了，其他的 App 也可以讀取到同相的登入資 訊進行登入。
-   C. 剪貼簿
- 11. JavaScript與ObjC的溝通
- A. UIWebViewDelegate B. JavaScriptCore
- 12. CI，UnitTest，AutoTest也有不少公司問到 13. 生命週期(ViewController&Application)，
- A. viewController init
-loadView viewDidLoad viewWillAppear viewDidAppear
-
- viewWillDisappear viewDidDisappear viewWillUnload viewDidUnload dealloc
-B. Application:
- i. application:willFinishLaunchingWithOptions: - 这个方法是你在启动 时的第一次机会来执行代码
-ii. application:didFinishLaunchingWithOptions: - 这个方法允许你在 显示 app 给用户之前执行最后的初始化操作
-iii. applicationDidBecomeActive: - app 已经切换到 active 状态后需 要执行的操作
-iv. applicationWillResignActive: - app 将要从前台切换到后台时需要执 行的操作
-v. applicationDidEnterBackground: - app 已经进入后台后需要执行的 操作
-vi. applicationWillEnterForeground: - app 将要从后台切换到前台需要 执行的操作，但 app 还不是 active 状态
-vii. applicationWillTerminate: - app 将要结束时需要执行的操作
- 14. MVC是什麼,優缺點?
- A. 優點:
-MVC 指的是 Model-View-Controller 架構，就是要在系統架構中，將資 料模組(Model)、呈現模組(View)、控制模組(Controller)三者分離，這樣 的做法可以降低系統內的功能邏輯和資料的耦合，使得架構上分工明確、促 使開發人員專責分工，進而提昇系統的擴充性。
-B. 缺點: 没有明确的定义、不适合小型，中等规模的应用程序，增加系统结构和实现 的复杂性
- 15. KVO觀念:
- A. KVO是Object-C中定義的一個通知機制，其定義了一種對象間監控對方 狀態的改變，並做出反應的機制。對象可以為自己的屬性註冊觀察者，當這 個屬性的值發生了改變，系統會對這些註冊的觀察者做出通知。
- 16. Singleton觀念:
- A. 有些時候為了不重覆去做某樣事情而降低了效率，例如:打開資料庫的連 接，如果每次用的時候打開，用完立即關閉，下次再用時又要打開連接，這
-
- 樣的效率不會高，這時候可以使用 Design Pattern 裡的 Singleton 模式去 減少資料庫的連接次數。
-Singleton 模式確保了不同的類別也使用相同的實例，並不會同時擁有 2 個 或以上的實例，這種模式是非常常用的，例如 Java EE 的 Spring Framework 預設創造的 Spring Bean 也是使用 Singleton 模式的，
-但 Singleton 模式亦有一個壞處，就是應用程式使用了 Thread 時，同時有 2 個類別也更改 Singleton 的類別內容可能會出問題，你需要
-在 Objective-C 內使用 @synchronized 來令到程式不能同時更改某些內 容，強迫一個執行完成完才到下一個，但使用這方法效率也會下降的。
- 17. ARC的機制是什麼?、MRC
-18. @proprety屬性、Strong&Weak對記憶體的影響 19. Json、XML
-20. closures 是什麼?
-21. Classmethod&instancemethod
- A. instancemethod(宣告時在開頭用-)
-class method (宣告時在開頭用 + )用法像是 JAVA 的 static method 差別在於 instance method 要先實例化, class method 可以直接透過 Object 使用
- 22. Push3viewControllerandhowtogetvariableinfristviewcontroller
- A. 使用singleton
- 23. TwoUitableviewinsameviewcontroller
- A. 跟一般的tableview做法一樣，只是多一個判斷tableview== self.firstTableView
- 24. Testcode
-25. Provisioning&Appid&codesign&certificate
- A. AppID即ProductID,用於標識一個或者一組App。
-B. Certificate:證書是一個經證書授權中心數字簽名的包含公開密鑰擁有者信
+>* 剪貼簿<br>
+- JavaScript與ObjC的溝通
+>* UIWebViewDelegate
+>* JavaScriptCore
+- CI，UnitTest，AutoTest也有不少公司問到 
+- 生命週期(ViewController&Application)，
+>* viewController <br>
+init<br>
+loadView<br>
+viewDidLoad <br>
+viewWillAppear <br>
+viewDidAppear <br>
+viewWillDisappear <br>
+viewDidDisappear <br>
+viewWillUnload <br>
+viewDidUnload <br>
+dealloc<br><br>
+>* Application:<br>
+ i. application:willFinishLaunchingWithOptions: - 这个方法是你在启动时的第一次机会来执行代码<br>
+ii. application:didFinishLaunchingWithOptions: - 这个方法允许你在显示 app 给用户之前执行最后的初始化操作<br>
+iii. applicationDidBecomeActive: - app 已经切换到 active 状态后需要执行的操作<br>
+iv. applicationWillResignActive: - app 将要从前台切换到后台时需要执行的操作<br>
+v. applicationDidEnterBackground: - app 已经进入后台后需要执行的操作<br>
+vi. applicationWillEnterForeground: - app 将要从后台切换到前台需要执行的操作，但 app 还不是 active 状态<br>
+vii. applicationWillTerminate: - app 将要结束时需要执行的操作<br>
+- KVO觀念:
+>* KVO是Object-C中定義的一個通知機制，其定義了一種對象間監控對方狀態的改變，並做出反應的機制。對象可以為自己的屬性註冊觀察者，當這個屬性的值發生了改變，系統會對這些註冊的觀察者做出通知。
+- Singleton觀念:
+>* 有些時候為了不重覆去做某樣事情而降低了效率，例如:打開資料庫的連接，如果每次用的時候打開，用完立即關閉，下次再用時又要打開連接，這樣的效率不會高，這時候可以使用 Design Pattern 裡的 Singleton 模式去 減少資料庫的連接次數。<br>
+Singleton 模式確保了不同的類別也使用相同的實例，並不會同時擁有 2 個或以上的實例，這種模式是非常常用的，例如 Java EE 的 Spring Framework 預設創造的 Spring Bean 也是使用 Singleton 模式的，但 Singleton 模式亦有一個壞處，就是應用程式使用了 Thread 時，同時有 2 個類別也更改 Singleton 的類別內容可能會出問題，你需要在 Objective-C 內使用 @synchronized 來令到程式不能同時更改某些內容，強迫一個執行完成完才到下一個，但使用這方法效率也會下降的。
+- ARC的機制是什麼?、MRC
+- @proprety屬性、Strong&Weak對記憶體的影響 
+- Json、XML
+- closures 是什麼?
+- Classmethod & instancemethod
+>* instancemethod(宣告時在開頭用-)
+>* class method (宣告時在開頭用 + )用法像是 JAVA 的 static method 差別在於 instance method 要先實例化, class method 可以直接透過 Object 使用
+- Push 3 viewController and how to get variable in fristviewcontroller
+>* 使用singleton
+- Two Uitableview in same viewcontroller
+>* 跟一般的tableview做法一樣，只是多一個判斷tableview== self.firstTableView
+- Testcode
+- Provisioning & Appid & codesign & certificate
+>* AppID即ProductID,用於標識一個或者一組App。
+>* Certificate:證書是一個經證書授權中心數字簽名的包含公開密鑰擁有者信
 息以及公開密鑰的文件。最簡單的證書包含一個公開密鑰、名稱以及證書授 權中心的數字簽名。 數字證書還有一個重要的特徵就是時效性:只在特定的時間段內有效。
-C. Codesign:Codesigning对你来说，最主要的意义就是它能让你的App 在设备上运行。不管是你自己的设备，甲方客户的，还是在 App store 上购 买你的消费者。
-D. ProvisioningProfiles(提供描述檔):描述
- i. 哪個 App ID (Bundle Identifier)
-
- ii. 使用哪張 Certificates (憑證)
-iii. 在哪些 Devices (裝置)可使用
- 26. AFNetworkingSynchronize
- A. NSOperation的operationwaitUntilFinished
-B. Use Block - typedef void (^completion_handler_t)(User*, NSError*); C. 第三方套件-AFNetworking-Synchronous
- 27. XcodeSnippets
+>* Codesign:Codesigning对你来说，最主要的意义就是它能让你的App在设备上运行。不管是你自己的设备，甲方客户的，还是在 App store 上购买你的消费者。
+>* ProvisioningProfiles(提供描述檔):<br>
+i. 哪個 App ID (Bundle Identifier)<br>
+ii. 使用哪張 Certificates (憑證)<br>
+iii. 在哪些 Devices (裝置)可使用<br>
+- AFNetworking Synchronize
+>* NSOperation的operation wait Until Finished
+>* Use Block - typedef void (^completion_handler_t)(User*, NSError*); 
+>* 第三方套件-AFNetworking-Synchronous
+- XcodeSnippets
 
 
 ## 進階題
-- ABD
+- MVC是什麼,優缺點?
+>* 優點:<br>
+MVC 指的是 Model-View-Controller 架構，就是要在系統架構中，將資 料模組(Model)、呈現模組(View)、控制模組(Controller)三者分離，這樣的做法可以降低系統內的功能邏輯和資料的耦合，使得架構上分工明確、促使開發人員專責分工，進而提昇系統的擴充性。<br>
+>* 缺點: <br>
+没有明确的定义、不适合小型，中等规模的应用程序，增加系统结构和实现的复杂性

@@ -132,7 +132,12 @@ iii. 在哪些 Devices (裝置)可使用<br>
 >* Use Block - typedef void (^completion_handler_t)(User*, NSError*); 
 >* 第三方套件-AFNetworking-Synchronous
 - XcodeSnippets
-
+- Delegate,NotificationCenter,Block使用時機
+>* 在函示回調(callbak function)一對一的情況時，適合使用Block<br>
+    例如Restful API的response，使用Block將結果回傳<br>
+>* 在函示回調(callbak function)一對多的情況時，適合使用Delegate<br>
+    例如UI響應事件，像UITableView可以有很多種因應不同使用情況而可以實作的method<br>
+>* 跨層通信，適合使用NotificationCenter，程式碼耦合度低，可一對多發送通知<br>
 
 ## 進階題
 - MVC是什麼,優缺點?

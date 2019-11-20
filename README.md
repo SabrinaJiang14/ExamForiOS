@@ -132,6 +132,7 @@ iii. 在哪些 Devices (裝置)可使用<br>
 >* Use Block - typedef void (^completion_handler_t)(User*, NSError*); 
 >* 第三方套件-AFNetworking-Synchronous
 - XcodeSnippets
+> 在Xcode右下角的的位置，有一個叫做 Code Snippets，他像是 code template，把一些常用的放在裡面。也可以自定義 code snippets。
 - Delegate,NotificationCenter,Block使用時機
 >* 在函示回調(callbak function)一對一的情況時，適合使用Block<br>
     例如Restful API的response，使用Block將結果回傳<br>
@@ -139,9 +140,41 @@ iii. 在哪些 Devices (裝置)可使用<br>
     例如UI響應事件，像UITableView可以有很多種因應不同使用情況而可以實作的method<br>
 >* 跨層通信，適合使用NotificationCenter，程式碼耦合度低，可一對多發送通知<br>
 
+### Swift
+- Class vs Struct
+
+- What is struct mutating?
+>* 基本上 Struct 是一個不可變的結構體。這在應用上可保證更加安全及可靠，但若今天需要變更 struct 內的資料時該怎麼辦？這時候就可以使用關鍵字：「mutating」。
+like as:
+```swift
+struct Point {
+    var x = 0.0, y = 0.0
+    mutating func moveTo(_ x:Double, _ y:Double) {
+        self.x += x
+        self.y += y
+    }
+}
+
+var result = Point(x: 0, y: 0)
+result.moveTo(5, 5)
+print(result)
+//Point(x: 5.0, y: 5.0)
+```
+
+- what different between weak and unowned self?
+
 ## 進階題
 - MVC是什麼,優缺點?
 >* 優點:<br>
 MVC 指的是 Model-View-Controller 架構，就是要在系統架構中，將資 料模組(Model)、呈現模組(View)、控制模組(Controller)三者分離，這樣的做法可以降低系統內的功能邏輯和資料的耦合，使得架構上分工明確、促使開發人員專責分工，進而提昇系統的擴充性。<br>
 >* 缺點: <br>
 没有明确的定义、不适合小型，中等规模的应用程序，增加系统结构和实现的复杂性
+
+- What is MVVM, MVVMC, VIPER?
+- 根據你的架構，要怎麼寫Unit test?
+
+
+
+
+- 
+- 
